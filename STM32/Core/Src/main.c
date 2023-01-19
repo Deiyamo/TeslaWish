@@ -127,7 +127,7 @@ int main(void)
   MX_USART2_UART_Init();
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
-
+  char buf[1] = {40};
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -135,6 +135,7 @@ int main(void)
   while (1)
   {
 	  HCSR04_Read();
+	  HAL_UART_Transmit(&huart1, (uint8_t *) buf, strlen(buf), 1000);
 	  HAL_Delay(700);
     /* USER CODE END WHILE */
 
@@ -263,7 +264,7 @@ static void MX_USART2_UART_Init(void)
 
   /* USER CODE END USART2_Init 1 */
   huart2.Instance = USART2;
-  huart2.Init.BaudRate = 115200;
+  huart2.Init.BaudRate = 9600;
   huart2.Init.WordLength = UART_WORDLENGTH_8B;
   huart2.Init.StopBits = UART_STOPBITS_1;
   huart2.Init.Parity = UART_PARITY_NONE;
