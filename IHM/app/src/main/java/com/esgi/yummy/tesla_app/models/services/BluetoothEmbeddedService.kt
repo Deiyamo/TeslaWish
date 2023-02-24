@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothSocket
 import com.esgi.yummy.tesla_app.models.entities.BluetoothResponse
+import com.esgi.yummy.tesla_app.models.extensions.toBoolean
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.InputStream
@@ -34,11 +35,15 @@ class BluetoothEmbeddedService(
             val inStream: InputStream = socket.inputStream
             val buffer = ByteArray(1024)
             numBytes = withContext(Dispatchers.IO) {
-                inStream.read(buffer, 0, 1024)
+                inStream.read(buffer, 0, 10)
             }
             val responseStr = String(buffer, 0, numBytes)
-            // TODO: Récupérer les vraies variables
-            return BluetoothResponse(false, false, 20.0, false)
+            val responseArr = responseStr.split(';')
+            val isLedBlinkingLeft = if (responseArr.isNotEmpty()) responseArr[0].toInt().toBoolean() else false
+            val isLedBlinkingRight = if (responseArr.count() >= 2) responseArr[1].toInt().toBoolean() else false
+            val distance = if (responseArr.count() >= 3) responseArr[2].toInt() else 0
+            val isMotorRunning = if (responseArr.count() >= 4) responseArr[3].toInt().toBoolean() else false
+            return BluetoothResponse(isLedBlinkingLeft, isLedBlinkingRight, distance, isMotorRunning)
         } else {
             throw Exception("Bluetooth non connecté")
         }

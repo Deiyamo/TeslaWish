@@ -10,6 +10,7 @@ import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBar
 import androidx.core.app.ActivityCompat
@@ -28,8 +29,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val actionBar: ActionBar? = supportActionBar
         actionBar?.hide()
-        bluetoothConnection()
-
+        if(checkPermissionBluetoothDevice(this)){
+            bluetoothConnection()
+        }
     }
 
     private fun checkPermissionBluetoothDevice(context: Context): Boolean {
@@ -42,6 +44,7 @@ class MainActivity : AppCompatActivity() {
 
     @SuppressLint("MissingPermission", "ClickableViewAccessibility")
     private fun bluetoothConnection() {
+        val txtDistance = findViewById<TextView>(R.id.txtDistance)
         val bluetoothManager: BluetoothManager = getSystemService(BluetoothManager::class.java)
         this.bluetoothAdapter = bluetoothManager.getAdapter()
         val pairedDevices: Set<BluetoothDevice>? = bluetoothAdapter?.bondedDevices
@@ -60,10 +63,10 @@ class MainActivity : AppCompatActivity() {
                         it.ex.message?.let { it1 -> Log.e("error", it1) }
                     }
                     BluetoothEmbeddedStateLoading -> {
-                        // TODO:
+                        Log.i("Bluetooth", "Loading...")
                     }
                     is BluetoothEmbeddedStateSuccess -> {
-
+                        txtDistance.text = getString(R.string.txt_distance, it.response.distance)
                     }
                 }
             }

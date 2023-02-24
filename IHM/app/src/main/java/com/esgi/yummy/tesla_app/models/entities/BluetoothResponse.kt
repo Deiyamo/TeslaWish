@@ -4,7 +4,7 @@ class BluetoothResponse(
 
     val isLedBlinkingLeft: Boolean,
     val isLedBlinkingRight: Boolean,
-    val distance: Double,
+    val distance: Int,
     val isMotorRunning: Boolean
 
 )

@@ -12,7 +12,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="Distance: 250m"
-        android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

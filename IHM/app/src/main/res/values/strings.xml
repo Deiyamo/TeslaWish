@@ -4,4 +4,6 @@
     <string name="btn_led_left">Clignotant\ngauche</string>
     <string name="btn_led_right">Clignotant\ndroite</string>
     <string name="btn_motor">Moteur</string>
+
+    <string name="txt_distance">Distance: %d m</string>
 </resources>
