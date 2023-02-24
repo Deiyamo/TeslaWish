@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">tesla-app</string>
+
+    <string name="btn_led_left">Clignotant\ngauche</string>
+    <string name="btn_led_right">Clignotant\ndroite</string>
+    <string name="btn_motor">Moteur</string>
 </resources>
