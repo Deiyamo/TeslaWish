@@ -33,7 +33,7 @@ class BluetoothEmbeddedService(
         if(socket.isConnected) {
             val numBytes: Int
             val inStream: InputStream = socket.inputStream
-            val buffer = ByteArray(1024)
+            val buffer = ByteArray(10)
             numBytes = withContext(Dispatchers.IO) {
                 inStream.read(buffer, 0, 10)
             }
